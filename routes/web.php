@@ -13,21 +13,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+/*
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-/* 
-
 Route::post('/gpt-ai', [OpenAiController::class, 'testAi'])->name('gpt-ai');
-
 //Auth::routes();
-
 */
 Route::get('/', [QuestionController::class, 'index'])->name('questions.index');
-
 Route::get('/gpt-ai', [OpenAiController::class, 'gptAi'])->name('gpt-ai');
-//Route::post('/gpt-ai', [OpenAiController::class, 'testAi'])->name('gpt-ai');

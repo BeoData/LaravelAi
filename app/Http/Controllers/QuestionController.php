@@ -12,14 +12,15 @@ class QuestionController extends Controller
     public function index()
     {
        // $questions = Question::all();
-        $questions = Question::whereNotNull('question')
+        $question= Question::whereNotNull('question')
             ->whereRaw('LENGTH(question) >= 10')
             ->whereRaw('LENGTH(answer) >= 10')
-            ->whereRaw('approved == 1')
+           // ->whereRaw('approved == 1')
           
             ->groupBy('question')
             ->get();
-
+        $questions =  $question ;
+           
         return view('gpt.questions.index', compact('questions'));
     }
 }

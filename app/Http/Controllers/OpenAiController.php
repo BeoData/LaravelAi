@@ -11,24 +11,24 @@ class OpenAiController extends Controller
     {
         if ($request->isMethod('get')) {
             $question = $request->input('textfield', '');
-          
-
-            $messages = [
-                [
-                    'role' => 'system',
-                    'content' => 'You are a helpful assistant.'
-                ]
-            ];
+        $precustion= "act as an SEO expert publish your answer in Serbian as a well formatted html page with meta tags and keywords, the page must be fully SEO ready and according to the W3C recommendations, keywords should be separated from the answer, and the question should read like this:";
 
             if (!empty($question)) {
                 $messages[] = [
                     'role' => 'user',
-                    'content' => $question
+                    'content' => $precustion . $question
+                ];
+            }
+            else{
+                $messages[] = [
+                    'role' => 'user',
+                    'content' => "This is just a test"
                 ];
             }
 
             $result = OpenAI::chat()->create([
-                'model' => 'gpt-3.5-turbo',
+               // 'model' => 'gpt-3.5-turbo',
+                'model' => 'gpt-3.5-turbo-0301',
                 'messages' => $messages
             ]);
 
@@ -36,7 +36,7 @@ class OpenAiController extends Controller
 
             $questionModel = new Question();
             $questionModel->question = $question;
-            $questionModel->answer = $answer;
+            $questionModel->answer = htmlentities($answer);
             $questionModel->save();
 
             
